@@ -2,7 +2,9 @@ from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as survey
 
+responses_key = 'responses'
 responses = []
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
@@ -11,6 +13,7 @@ debug = DebugToolbarExtension(app)
 @app.route('/')
 def render_page():
     responses.clear()
+    session[responses_key] = []
     return render_template('base.html', survey = survey)
 
 @app.route('/question/1')
@@ -21,6 +24,7 @@ def render_survey_page():
 def record_answer():
     answer = request.form['answer']
     responses.append(answer)
+    session[responses_key] = responses
     return redirect('/question/2')
 
     
@@ -35,6 +39,7 @@ def render_survey_page2():
 def record_answer2():
     answer = request.form['answer']
     responses.append(answer)
+    session[responses_key] = responses
     return redirect('/question/3')
 
 @app.route('/question/3')
@@ -48,6 +53,7 @@ def render_survey_page3():
 def record_answer3():
     answer = request.form['answer']
     responses.append(answer)
+    session[responses_key] = responses
     return redirect('/question/4')
 
 @app.route('/question/4')
@@ -61,6 +67,7 @@ def render_survey_page4():
 def record_answer4():
     answer = request.form['answer']
     responses.append(answer)
+    session[responses_key] = responses
     return redirect('/complete')
 
 @app.route('/complete')
