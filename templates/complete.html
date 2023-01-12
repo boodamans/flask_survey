@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Complete</title>
+</head>
+<body>
+    <h1>Survey Complete!</h1>
+    <p>Your responses have been recorded, thank you for participating! You can view your responses below.</p>
+    <ol>
+        {% for response in responses %}
+        <li>{{response}}</li>
+        {%endfor%}
+    </ol>
+    <form action="/">
+        <button>Return to homepage</button>
+    </form>
+</body>
+</html>
